@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html ng-app="customers">
+
+    
+    <body ng-controller="CustomerController as CC">
+    
+        <ul>
+            <li data-id ="{{ customer.id}}" ng-repeat="customer in CC.customers" ng-click="CC.remove($index)"><a href = "#">{{ customer.name }}</a></li>
+        </ul>
+    <form ng-submit="CC.add()">
+        
+        <label for="customer-name">New Customer</label>
+        <input id = "customer-name" type="text" ng-model="CC.newName">
+        <input type = "submit" value="Add New Customer">
+        </form>
+        <div>
+            Total # of customers: {{ CC.customers.length }}
+        </div>
+        
+        <div>
+            First customer: {{ CC.customers[0].name }} <br>
+            
+            Last customer: {{ CC.customers[CC.customers.length - 1].name}}
+        </div>
+        
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script type="text/javascript">
+    
+        angular.module('customers', []).controller("CustomerController", function()
+                                    
+            {
+              
+                this.customers = [
+                    
+                    {id: 87, name : "John Doe"},
+                    {id: 100, name: "Jane Doe"}
+                ];
+            
+
+            this.newName = ""
+            this.add = function()
+            {
+                this.customers.push( {id : 40, name: this.newName})
+                this.newName = ""
+                console.log(this)
+            }
+          
+            this.remove = function(index)
+            
+            { 
+                this.customers.splice(index,1);     
+            }   
+              
+        });
+
+        </script>
+    </body>
+</html>
